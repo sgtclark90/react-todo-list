@@ -1,29 +1,42 @@
-import { useState } from "react"
+import { useState } from "react";
 
 export function NewTodoForm({ onSubmit }) {
-  const [newItem, setNewItem] = useState("")
+  // State to manage the value of the new todo item input field
+  const [newItem, setNewItem] = useState("");
 
+  // Function to handle form submission
   function handleSubmit(e) {
-    e.preventDefault()
-    if (newItem === "") return
+    e.preventDefault();
 
-    onSubmit(newItem)
+    // Check if the new item is empty; if so, return without doing anything
+    if (newItem === "") return;
 
-    setNewItem("")
+    // Call the onSubmit function (passed as a prop) with the new item as an argument
+    onSubmit(newItem);
+
+    // Clear the input field by resetting the state
+    setNewItem("");
   }
 
   return (
+    // Render a form with an onSubmit event handler
     <form onSubmit={handleSubmit} className="new-item-form">
       <div className="form-row">
+        {/* Label for the input field */}
         <label htmlFor="item">New Item</label>
+
+        {/* Input field for entering a new todo item */}
         <input
           value={newItem}
-          onChange={e => setNewItem(e.target.value)}
+          // When the input value changes, update the state with the new value
+          onChange={(e) => setNewItem(e.target.value)}
           type="text"
           id="item"
         />
       </div>
+
+      {/* Button to submit the form */}
       <button className="btn">Add</button>
     </form>
-  )
+  );
 }
